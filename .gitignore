@@ -1,0 +1,6 @@
+zig-out
+zig-cache
+.idea
+node_modules
+xpacks
+pkg

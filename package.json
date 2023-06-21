@@ -1,0 +1,39 @@
+{
+  "name": "rvx",
+  "version": "0.1.0",
+  "description": "RVX with xPack",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chaoyangnz/rvx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chaoyangnz/rvx/issues/"
+  },
+  "homepage": "https://github.com/chaoyangnz/rvx/",
+  "keywords": [
+    "xpack"
+  ],
+  "author": {
+    "name": "Chao Yang",
+    "email": "chao@yang.so",
+    "url": "https://chao.yang.so"
+  },
+  "license": "MIT",
+  "config": {},
+  "devDependencies": {
+    "xpm": "^0.15.0"
+  },
+  "xpack": {
+    "minimumXpmRequired": "0.14.0",
+    "dependencies": {},
+    "devDependencies": {
+      "@xpack-dev-tools/riscv-none-elf-gcc": "12.1.0-2.1",
+      "@xpack-dev-tools/openocd": "0.11.0-4.1",
+      "@xpack-dev-tools/cmake": "3.21.6-1.1"
+    }
+  }
+}
