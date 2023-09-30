@@ -85,7 +85,7 @@ fn build_kernel_d1(b: *Build) *std.Build.Step.InstallArtifact {
     exe.omit_frame_pointer = false;
     exe.stack_protector = false;
     exe.pie = false;
-    exe.code_model = .small;
+    exe.code_model = .medium;
     exe.setVerboseCC(verboseCC);
     exe.setVerboseLink(verboseLink);
     return b.addInstallArtifact(exe, .{});

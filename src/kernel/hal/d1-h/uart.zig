@@ -46,7 +46,6 @@ pub fn init() void {
 }
 
 pub fn tx(ch: u8) void {
-    // while (peripherals.UART0.LSR.read().thre == .empty) {
+    while (peripherals.UART0.LSR.read().thre != .empty) {}
     peripherals.UART0.THR.modify(.{ .thr = ch });
-    // }
 }

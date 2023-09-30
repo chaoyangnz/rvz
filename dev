@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-command=$1
+command=${1:-run}
 target=${2:-vf2}
 
 TOOL_CHAIN_PREFIX=./xpacks/.bin/riscv-none-elf
@@ -11,12 +11,12 @@ PATH=tools/bin:$PATH
 
 function download_nezha () {
     echo "Download to Nezha"
-    xfel version
+    xfel version && xfel ddr d1
+    test $? -eq 0 || exit
     set -x
-    xfel ddr d1
-    xfel write 0x40000000 ${BIN_FILE}
+    xfel write 0x40000000 ${BIN_FILE} 
     xfel exec 0x40000000
-    set +x
+    { set +x; } 2>/dev/null
 }
 
 function download_vf2 () {
@@ -24,7 +24,7 @@ function download_vf2 () {
     set -x
     spl_tool -c -f ${BIN_FILE}
     vf2flash -l 0 -t -f ${BIN_FILE}.normal.out
-    set +x
+    { set +x; } 2>/dev/null
 }
 
 function download () {
@@ -38,10 +38,11 @@ function download () {
 }
 
 function build () {
+    rm $BIN_DIR/*
     set -x
     zig build kernel -Dboard="${target}"
     ${TOOL_CHAIN_PREFIX}-objdump -h -d -S ${BIN_DIR}/kernel.elf > ${BIN_DIR}/kernel.elf.objdump
-    set +x
+    { set +x; } 2>/dev/null
 }
 
 if [ "$command" == "build" ]; then
