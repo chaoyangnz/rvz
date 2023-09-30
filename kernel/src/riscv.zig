@@ -1,10 +1,10 @@
 pub inline fn w_mem(comptime T: type, address: usize, v: T) void {
-    const ptr = @intToPtr(*volatile T, address);
+    const ptr = @as(*volatile T, @ptrFromInt(address));
     ptr.* = v;
 }
 
 pub fn r_mem(comptime T: type, address: usize) T {
-    const ptr = @intToPtr(*volatile T, address);
+    const ptr = @as(*volatile T, @ptrFromInt(address));
     return ptr.*;
 }
 

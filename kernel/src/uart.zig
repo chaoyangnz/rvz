@@ -51,9 +51,9 @@ fn tx_raw(n: u8) void {
     const one = n % 10;
     tx('\\');
     if (two != 0) {
-        tx(@truncate(u8, two + 48));
+        tx(@as(u8, @truncate(two + 48)));
     }
-    tx(@truncate(u8, one + 48));
+    tx(@as(u8, @truncate(one + 48)));
 }
 
 pub fn putc(c: u8) void {

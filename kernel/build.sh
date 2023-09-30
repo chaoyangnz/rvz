@@ -24,7 +24,7 @@ zig build
 #     -O Debug \
 #     src/entry.S src/start.zig
 
-${TOOL_CHAIN_PREFIX}-objdump -d -D ${BIN_DIR}/kernel.elf > ${BIN_DIR}/kernel.elf.objdump
+${TOOL_CHAIN_PREFIX}-objdump -h -d -S ${BIN_DIR}/kernel.elf > ${BIN_DIR}/kernel.elf.objdump
 ${TOOL_CHAIN_PREFIX}-objcopy -S -O binary ${BIN_DIR}/kernel.elf ${BIN_DIR}/kernel.bin
 
 ../tools/bin/vf2-programmer -l 1 -t -f ${BIN_DIR}/kernel.bin
