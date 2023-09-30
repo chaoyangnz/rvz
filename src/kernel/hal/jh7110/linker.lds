@@ -6,7 +6,9 @@ ENTRY( _start )
 MEMORY
 {
 	/* flash (rx!w) : ORIGIN = 0x20010000, LENGTH = 0x6a120 */
-	dram (rw!x) : ORIGIN = 0x40000000, LENGTH = 0x10000000
+	/* l2lim (rw!x) : ORIGIN = 0x08000000, LENGTH = 1M */
+	/** TODO: length unable to be grater than 1M */
+	dram (rw!x) : ORIGIN = 0x40000000, LENGTH = 1M
 }
 
 SECTIONS
@@ -38,7 +40,7 @@ SECTIONS
 	_heap_end = _heap_start + _heap_len;
 
 	_stack_top = ORIGIN(dram) + LENGTH(dram);
-	_stack_start = _stack_top + _stack_len;
+	_stack_start = _stack_top - _stack_len;
 	_stack_len = 0x1000;
 	_stack_end = _stack_top;
 	

@@ -30,9 +30,9 @@ ${TOOL_CHAIN_PREFIX}-objdump -d -D ${BIN_DIR}/splz.elf > ${BIN_DIR}/splz.elf.obj
 ${TOOL_CHAIN_PREFIX}-objcopy -S -O binary ${BIN_DIR}/splz.elf ${BIN_DIR}/splz.bin
 
 spl_tool -c -f ${BIN_DIR}/splz.bin
-cp ${BIN_DIR}/splz.bin.normal.out ../tools/vf2-programmer/
-cd ../tools/vf2-programmer/ && go build && cd -
+cp ${BIN_DIR}/splz.bin.normal.out ../tools/vf2flash/
+cd ../tools/vf2flash/ && go build && cd -
 
-../tools/bin/vf2-programmer -l 3 -t
+../tools/bin/vf2flash -l 3 -t
 
 

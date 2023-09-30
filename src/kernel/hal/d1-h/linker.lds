@@ -38,7 +38,7 @@ SECTIONS
 	_heap_end = _heap_start + _heap_len;
 
 	_stack_top = ORIGIN(dram) + LENGTH(dram);
-	_stack_start = _stack_top + _stack_len;
+	_stack_start = _stack_top - _stack_len;
 	_stack_len = 0x1000;
 	_stack_end = _stack_top;
 	

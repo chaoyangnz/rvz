@@ -22,7 +22,8 @@ function download_nezha () {
 function download_vf2 () {
     echo "Download to VisionFive2"
     set -x
-    vf2flash -l 1 -t -f ${BIN_FILE}
+    spl_tool -c -f ${BIN_FILE}
+    vf2flash -l 0 -t -f ${BIN_FILE}.normal.out
     set +x
 }
 

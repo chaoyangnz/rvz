@@ -109,7 +109,7 @@ func main() {
 	}
 
 	fmt.Printf("Connected to %s, baud: %d, Please push reset button now\n", options.PortName, options.BaudRate)
-	fmt.Printf("Waiting for bootloader startup sequence..\n")
+	fmt.Printf("Waiting for poll sequence..\n")
 
 	defer port.Close()
 
@@ -123,7 +123,7 @@ func main() {
 	case NONE:
 	}
 
-	if fw != "" && loader != NONE {
+	if fw != "" {
 		sendFirmware(port, fw)
 	}
 
