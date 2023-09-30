@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+command=$1
+target=${2:-vf2}
+
+TOOL_CHAIN_PREFIX=./xpacks/.bin/riscv-none-elf
+BIN_DIR=zig-out/bin
+BIN_FILE=${BIN_DIR}/kernel.bin
+
+PATH=tools/bin:$PATH
+
+function download_nezha () {
+    echo "Download to Nezha"
+    xfel version
+    set -x
+    xfel ddr d1
+    xfel write 0x40000000 ${BIN_FILE}
+    xfel exec 0x40000000
+    set +x
+}
+
+function download_vf2 () {
+    echo "Download to VisionFive2"
+    set -x
+    vf2flash -l 1 -t -f ${BIN_FILE}
+    set +x
+}
+
+function download () {
+    if [[ "${target}" == "nezha" ]]; then
+        download_nezha
+    fi
+
+    if [[ "${target}" == "vf2" ]]; then
+        download_vf2
+    fi
+}
+
+function build () {
+    set -x
+    zig build kernel -Dboard="${target}"
+    ${TOOL_CHAIN_PREFIX}-objdump -h -d -S ${BIN_DIR}/kernel.elf > ${BIN_DIR}/kernel.elf.objdump
+    set +x
+}
+
+if [ "$command" == "build" ]; then
+    build
+elif [ "$command" == "download" ]; then
+    download
+else
+    build
+    download
+fi
+
+
