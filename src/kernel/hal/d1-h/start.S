@@ -4,9 +4,9 @@
 .globl _start
 
 _start:
-    # uart output a . to indicate it is working
+    # uart output a * to indicate it is working
     li	a5, 0x02500000
-    li	a4, 0x2E
+    li	a4, '*'
     sw	a4,0(a5)
     # only run on hart0
     csrr  t0, mhartid

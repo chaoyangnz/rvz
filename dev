@@ -14,9 +14,11 @@ function download_nezha () {
     xfel version && xfel ddr d1
     test $? -eq 0 || exit
     set -x
+    serial-term &
     xfel write 0x40000000 ${BIN_FILE} 
-    xfel exec 0x40000000
     { set +x; } 2>/dev/null
+    sleep 2
+    xfel exec 0x40000000
 }
 
 function download_vf2 () {

@@ -88,6 +88,9 @@ fn build_kernel_d1(b: *Build) *std.Build.Step.InstallArtifact {
     exe.code_model = .medium;
     exe.setVerboseCC(verboseCC);
     exe.setVerboseLink(verboseLink);
+    var options = b.addOptions();
+    options.addOption(Board, "board", Board.nezha);
+    exe.addOptions("build_options", options);
     return b.addInstallArtifact(exe, .{});
 }
 
@@ -115,5 +118,8 @@ fn build_kernel_jh7110(b: *Build) *std.Build.Step.InstallArtifact {
     exe.code_model = .medium;
     exe.setVerboseCC(verboseCC);
     exe.setVerboseLink(verboseLink);
+    var options = b.addOptions();
+    options.addOption(Board, "board", Board.vf2);
+    exe.addOptions("build_options", options);
     return b.addInstallArtifact(exe, .{});
 }

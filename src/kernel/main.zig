@@ -1,6 +1,5 @@
 const std = @import("std");
-// const sys = @import("./hal/d1-h/sys.zig");
-const sys = @import("./hal/jh7110/sys.zig");
+const sys = @import("./hal/sys.zig");
 const console = @import("./hal/console.zig");
 const mem = @import("./hal/mem.zig");
 
