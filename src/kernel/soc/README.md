@@ -1,0 +1,1 @@
+https://github.com/rmsyn/jh71xx-pac/tree/main/jh7110-vf2-13b-pac

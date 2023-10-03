@@ -93,3 +93,13 @@ pub fn Mmio(comptime PackedT: type) type {
         }
     };
 }
+
+pub inline fn w_mem(comptime T: type, address: usize, v: T) void {
+    const ptr = @as(*volatile T, @ptrFromInt(address));
+    ptr.* = v;
+}
+
+pub fn r_mem(comptime T: type, address: usize) T {
+    const ptr = @as(*volatile T, @ptrFromInt(address));
+    return ptr.*;
+}
