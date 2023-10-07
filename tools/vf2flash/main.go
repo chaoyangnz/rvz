@@ -73,7 +73,7 @@ func main() {
 	fw := ""
 	var baud = flag.Uint("baud", 115200, "baud rate")
 	var device = flag.String("d", "/dev/ttyUSB0", "UART device file or port name")
-	flag.IntVar(&loader, "l", NONE, "which loader to send: 0) none 1) SPL -> DRAM 0x40000000, 2) RECOVERY -> SPI Flash 2nd sector 3) SPLz -> DRAM 0x40000000")
+	flag.IntVar(&loader, "l", NONE, "which loader to send: 0) none -> L2 LIM 0x8000000 1) SPL -> DRAM 0x40000000, 2) RECOVERY -> SPI Flash 2nd sector 3) SPLz -> DRAM 0x40000000")
 	flag.BoolVar(&term, "t", true, "keep the term opening anytime no file sending")
 	flag.StringVar(&fw, "f", "", "the firmware you hope to upload")
 	flag.Parse()

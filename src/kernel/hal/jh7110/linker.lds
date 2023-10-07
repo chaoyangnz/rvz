@@ -5,19 +5,19 @@ ENTRY( _start )
 
 MEMORY
 {
-	/* flash (rx!w) : ORIGIN = 0x20010000, LENGTH = 0x6a120 */
-	/* l2lim (rw!x) : ORIGIN = 0x08000000, LENGTH = 1M */
-	/** TODO: length unable to be grater than 1M */
-	dram (rw!x) : ORIGIN = 0x40000000, LENGTH = 1M
+	/* VF2 load the payload to L2 LIM, which is only 1M size */
+	l2lim (rw!x) : ORIGIN = 0x08000000, LENGTH = 1M
+	/* DDR4 has 4G size, we are unable to use it directly until it is initialised */
+	dram (rw!x) : ORIGIN = 0x40000000, LENGTH = 4M * 1024 
 }
 
 SECTIONS
 {
-	_ro_start = ORIGIN(dram);
+	_ro_start = ORIGIN(l2lim);
 
-	.text : { *(.text .text*) } > dram
-	.gnu_build_id : { *(.note.gnu.build-id) } > dram
-	.rodata : { *(.rodata .rodata* .srodata .srodata*) } > dram
+	.text : { *(.text .text*) } > l2lim
+	.gnu_build_id : { *(.note.gnu.build-id) } > l2lim
+	.rodata : { *(.rodata .rodata* .srodata .srodata*) } > l2lim
 
 	_ro_end = .;
 
@@ -25,7 +25,7 @@ SECTIONS
 		_data_start = ABSOLUTE(.);
 		*(.data .data* .sdata .sdata*) 
 		_data_end = ABSOLUTE(.);
-	} > dram
+	} > l2lim
 	_data_loadaddr = LOADADDR(.data);
 	_data_len = _data_end - _data_start;
 
@@ -33,13 +33,13 @@ SECTIONS
 		_bss_start = ABSOLUTE(.);
 		*(.bss .sbss) 
 		_bss_end = ABSOLUTE(.);
-	} > dram
+	} > l2lim
 
 	_heap_start = ABSOLUTE(.);
   	_heap_len = _stack_top - _stack_len - _heap_start;
 	_heap_end = _heap_start + _heap_len;
 
-	_stack_top = ORIGIN(dram) + LENGTH(dram);
+	_stack_top = ABSOLUTE(ORIGIN(l2lim) + LENGTH(l2lim));
 	_stack_start = _stack_top - _stack_len;
 	_stack_len = 0x1000;
 	_stack_end = _stack_top;

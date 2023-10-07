@@ -22,3 +22,9 @@ pub fn tx(c: u8) void {
     while (UART0.LSR.read().TEMT != 1) {}
     UART0.THR.modify(.{ .THR = c });
 }
+
+pub fn printf(s: []const u8) void {
+    for (s) |c| {
+        tx(c);
+    }
+}

@@ -17,6 +17,9 @@ _start:
 _main:
     # csrw  mie, 0
     la    sp, _stack_top
-    jal   main
+    # la sp, stack0
+    # li a0, 1024*4
+    # add sp, sp, a0
+    j   main
 
 _halt: j _halt
