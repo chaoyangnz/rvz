@@ -25,7 +25,10 @@ function download_vf2 () {
     echo "Download to VisionFive2"
     set -x
     spl_tool -c -f ${BIN_FILE}
-    vf2flash -l 0 -t -f ${BIN_FILE}.normal.out
+    # boot directly from L2 LIM at 0x8000000, but the linker must use linker.l2lim.lds
+    # vf2flash -l 0 -t -f ${BIN_FILE}.normal.out
+    # boot through SPL (ddr init) and then from DRAM at 0x40000000
+    vf2flash -l 1 -t -f ${BIN_FILE}
     { set +x; } 2>/dev/null
 }
 
